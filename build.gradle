@@ -1,0 +1,33 @@
+plugins {
+    id "java-library"
+}
+
+group = "io.github.nozyx12"
+version = "1.0"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "com.squareup.okhttp3:okhttp:4.12.0"
+    implementation "org.json:json:20240303"
+}
+
+jar {
+    archiveBaseName = archiveBaseName.get().toLowerCase()
+
+    compileJava.options.encoding = "UTF-8"
+}
+
+tasks.register("generateSourcesJar", Jar) {
+    archiveClassifier.set("sources")
+    from sourceSets.main.allSource
+    archiveBaseName = archiveBaseName.get().toLowerCase()
+}
+
+tasks.register("generateJavadocJar", Jar) {
+    archiveClassifier.set("javadoc")
+    from javadoc
+    archiveBaseName = archiveBaseName.get().toLowerCase()
+}
